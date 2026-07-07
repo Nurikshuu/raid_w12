@@ -1,0 +1,256 @@
+{
+  "index_meta": {
+    "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "strategy": "article_based",
+    "chunk_size": 1600,
+    "overlap": 100,
+    "preprocessing_version": "v1",
+    "num_chunks": 1298,
+    "index_version": "article_based-1600-paraphrase-multilingual-MiniLM-L12-v2"
+  },
+  "k": 5,
+  "num_questions": 17,
+  "recall_at_k": 0.8823529411764706,
+  "mrr": 0.6781045751633987,
+  "mean_query_latency_ms": 24.751551011029413,
+  "per_question": [
+    {
+      "id": "q01",
+      "question": "Сколько часов в неделю составляет нормальная продолжительность рабочего времени по Трудовому кодексу РК?",
+      "category": "numeric",
+      "hit_at_k": true,
+      "reciprocal_rank": 1.0,
+      "top_chunk_ids": [
+        "labor_code:68:art:0",
+        "labor_code:78:art:0",
+        "labor_code:71:art:0",
+        "labor_code:84:art:0",
+        "labor_code:114:art:0"
+      ]
+    },
+    {
+      "id": "q02",
+      "question": "Какая сокращенная продолжительность рабочего времени установлена для работников в возрасте от 14 до 16 лет?",
+      "category": "numeric",
+      "hit_at_k": true,
+      "reciprocal_rank": 1.0,
+      "top_chunk_ids": [
+        "labor_code:69:art:0",
+        "labor_code:135:art:2",
+        "labor_code:68:art:0",
+        "labor_code:73-1:art:0",
+        "labor_code:78:art:0"
+      ]
+    },
+    {
+      "id": "q03",
+      "question": "Сколько часов сверхурочной работы в месяц максимально допускается при пятидневной рабочей неделе?",
+      "category": "numeric",
+      "hit_at_k": true,
+      "reciprocal_rank": 0.5,
+      "top_chunk_ids": [
+        "labor_code:71:art:0",
+        "labor_code:78:art:0",
+        "labor_code:84:art:0",
+        "labor_code:135:art:2",
+        "labor_code:68:art:0"
+      ]
+    },
+    {
+      "id": "q04",
+      "question": "Какова продолжительность основного оплачиваемого ежегодного трудового отпуска в календарных днях?",
+      "category": "numeric",
+      "hit_at_k": true,
+      "reciprocal_rank": 0.25,
+      "top_chunk_ids": [
+        "labor_code:92:art:0",
+        "labor_code:135:art:2",
+        "labor_code:91:art:0",
+        "labor_code:88:art:0",
+        "labor_code:90:art:0"
+      ]
+    },
+    {
+      "id": "q05",
+      "question": "Какой максимальный испытательный срок может быть установлен в трудовом договоре?",
+      "category": "numeric",
+      "hit_at_k": true,
+      "reciprocal_rank": 1.0,
+      "top_chunk_ids": [
+        "labor_code:36:art:0",
+        "labor_code:30:art:0",
+        "labor_code:53:art:1",
+        "labor_code:138:art:0",
+        "labor_code:68:art:0"
+      ]
+    },
+    {
+      "id": "q06",
+      "question": "За сколько времени работник обязан предупредить работодателя об увольнении по собственной инициативе?",
+      "category": "numeric",
+      "hit_at_k": true,
+      "reciprocal_rank": 0.3333333333333333,
+      "top_chunk_ids": [
+        "labor_code:111:art:1",
+        "labor_code:53:art:1",
+        "labor_code:56:art:0",
+        "labor_code:40:art:3",
+        "labor_code:166:art:1"
+      ]
+    },
+    {
+      "id": "q07",
+      "question": "Сколько выходных дней в неделю предоставляется работникам при пятидневной рабочей неделе?",
+      "category": "numeric",
+      "hit_at_k": true,
+      "reciprocal_rank": 1.0,
+      "top_chunk_ids": [
+        "labor_code:84:art:0",
+        "labor_code:71:art:0",
+        "labor_code:135:art:2",
+        "labor_code:78:art:0",
+        "labor_code:83:art:0"
+      ]
+    },
+    {
+      "id": "q08",
+      "question": "Кто является субъектами трудовых отношений согласно Трудовому кодексу РК?",
+      "category": "definition",
+      "hit_at_k": true,
+      "reciprocal_rank": 0.5,
+      "top_chunk_ids": [
+        "labor_code:28:art:0",
+        "labor_code:19:art:0",
+        "labor_code:52:art:0",
+        "labor_code:146:art:0",
+        "labor_code:28:art:1"
+      ]
+    },
+    {
+      "id": "q09",
+      "question": "Какие основания расторжения трудового договора по инициативе работодателя предусмотрены Трудовым кодексом?",
+      "category": "definition",
+      "hit_at_k": true,
+      "reciprocal_rank": 1.0,
+      "top_chunk_ids": [
+        "labor_code:52:art:0",
+        "labor_code:26:art:0",
+        "labor_code:53:art:3",
+        "labor_code:60:art:0",
+        "labor_code:58:art:0"
+      ]
+    },
+    {
+      "id": "q10",
+      "question": "Работник трудится на условиях суммированного учета рабочего времени и хочет знать: сколько часов сверхурочной работы ему могут максимально начислить за год, и как оплачивается сверхурочная работа?",
+      "category": "multi_chunk",
+      "hit_at_k": true,
+      "reciprocal_rank": 0.3333333333333333,
+      "top_chunk_ids": [
+        "labor_code:75:art:0",
+        "labor_code:79:art:0",
+        "labor_code:78:art:0",
+        "labor_code:108:art:0",
+        "labor_code:114:art:0"
+      ]
+    },
+    {
+      "id": "q11",
+      "question": "Какая ставка налога на добавленную стоимость (НДС) установлена Налоговым кодексом РК?",
+      "category": "numeric",
+      "hit_at_k": true,
+      "reciprocal_rank": 0.5,
+      "top_chunk_ids": [
+        "tax_code:490:art:0",
+        "tax_code:503:art:0",
+        "tax_code:502:art:0",
+        "tax_code:440:art:0",
+        "tax_code:300:art:0"
+      ]
+    },
+    {
+      "id": "q12",
+      "question": "Какой предельный годовой доход дает право применять специальный налоговый режим на основе упрощенной декларации?",
+      "category": "numeric",
+      "hit_at_k": false,
+      "reciprocal_rank": 0.1111111111111111,
+      "top_chunk_ids": [
+        "tax_code:726:art:0",
+        "tax_code:724:art:0",
+        "tax_code:722:art:0",
+        "tax_code:724:art:3",
+        "tax_code:724:art:2"
+      ]
+    },
+    {
+      "id": "q13",
+      "question": "Какая ставка налога применяется при специальном налоговом режиме на основе упрощенной декларации?",
+      "category": "numeric",
+      "hit_at_k": true,
+      "reciprocal_rank": 1.0,
+      "top_chunk_ids": [
+        "tax_code:726:art:0",
+        "tax_code:722:art:0",
+        "tax_code:724:art:0",
+        "tax_code:724:art:3",
+        "tax_code:724:art:2"
+      ]
+    },
+    {
+      "id": "q14",
+      "question": "По какой ставке облагается индивидуальным подоходным налогом доход физического лица в пределах 8500-кратного месячного расчетного показателя?",
+      "category": "numeric",
+      "hit_at_k": true,
+      "reciprocal_rank": 1.0,
+      "top_chunk_ids": [
+        "tax_code:363:art:1",
+        "tax_code:412:art:0",
+        "tax_code:441:art:0",
+        "tax_code:730:art:0",
+        "tax_code:405:art:1"
+      ]
+    },
+    {
+      "id": "q15",
+      "question": "Какая ставка корпоративного подоходного налога применяется к доходам, облагаемым у источника выплаты (кроме доходов нерезидентов)?",
+      "category": "numeric",
+      "hit_at_k": true,
+      "reciprocal_rank": 1.0,
+      "top_chunk_ids": [
+        "tax_code:357:art:1",
+        "tax_code:238:art:0",
+        "tax_code:683:art:1",
+        "tax_code:345:art:0",
+        "tax_code:363:art:1"
+      ]
+    },
+    {
+      "id": "q16",
+      "question": "Что является налоговым периодом для корпоративного подоходного налога?",
+      "category": "definition",
+      "hit_at_k": true,
+      "reciprocal_rank": 1.0,
+      "top_chunk_ids": [
+        "tax_code:358:art:0",
+        "tax_code:347:art:0",
+        "tax_code:359:art:1",
+        "tax_code:356:art:0",
+        "tax_code:415:art:0"
+      ]
+    },
+    {
+      "id": "q17",
+      "question": "Индивидуальный предприниматель хочет перейти на упрощенную декларацию: при каком доходе он еще имеет право это сделать и по какой ставке будет платить налог?",
+      "category": "multi_chunk",
+      "hit_at_k": false,
+      "reciprocal_rank": 0.0,
+      "top_chunk_ids": [
+        "tax_code:420:art:0",
+        "tax_code:393:art:0",
+        "tax_code:411:art:1",
+        "tax_code:393:art:1",
+        "tax_code:491:art:0"
+      ]
+    }
+  ]
+}
