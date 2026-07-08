@@ -12,7 +12,7 @@
   "num_questions": 17,
   "recall_at_k": 0.8823529411764706,
   "mrr": 0.6781045751633987,
-  "mean_query_latency_ms": 24.751551011029413,
+  "mean_query_latency_ms": 27.161079294541302,
   "per_question": [
     {
       "id": "q01",

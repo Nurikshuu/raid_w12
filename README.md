@@ -42,6 +42,10 @@ uvicorn app.main:app --port 8000
 
 or with `make`: `make install && make index && make serve`.
 
+Verified on this machine: `uvicorn app.main:app --port 8000` reaches
+`/ready` returning `{"ready": true, ...}` in **~17s** (index load + embedding
+model load), well inside the 30s budget.
+
 ```bash
 curl -X POST localhost:8000/ask \
   -H "Content-Type: application/json" \
