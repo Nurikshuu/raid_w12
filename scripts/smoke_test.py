@@ -22,7 +22,7 @@ def main():
     from fastapi.testclient import TestClient
     from app.main import app
 
-    questions = [json.loads(l)["question"] for l in open(ROOT / "evaluation/ground_truth.jsonl", encoding="utf-8")]
+    questions = [json.loads(line)["question"] for line in open(ROOT / "evaluation/ground_truth.jsonl", encoding="utf-8")]
     random.seed(42)
     # 100 random-length questions: mix full questions with truncated
     # (but still >=3 char, per AskRequest's min_length) random-length prefixes

@@ -15,7 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-BASE_QUESTIONS = [json.loads(l)["question"] for l in open(ROOT / "evaluation/ground_truth.jsonl", encoding="utf-8")]
+BASE_QUESTIONS = [json.loads(line)["question"] for line in open(ROOT / "evaluation/ground_truth.jsonl", encoding="utf-8")]
 
 PREFIXES = ["", "Подскажите: ", "Согласно кодексу, ", "Уточните, пожалуйста: "]
 
