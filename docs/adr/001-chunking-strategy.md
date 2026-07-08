@@ -37,19 +37,28 @@ required second strategy for comparison in `notebooks/01_ingestion.ipynb` /
 Ablation 1 (`notebooks/02_ablation.ipynb`, chunk size/strategy sweep, embedding
 model fixed at `paraphrase-multilingual-MiniLM-L12-v2`) measured recall@5 for
 five variants; see `evaluation/results/ablation_chunk_size.png` and
-`ablation_summary.json` for exact numbers. `article_based` won because a
-question about a specific numeric fact (a leave duration, a tax rate, an
-income threshold) almost always maps onto exactly one article - splitting
-that article into arbitrary 200-800 character windows sometimes separates the
-number from the clause that explains what it means, which costs recall for no
-benefit, since we never needed a smaller unit than "one article" in the first
-place.
+`ablation_summary.json` for exact numbers. Recall climbs monotonically with
+chunk size (0.647 at 200 chars -> 0.882 at 1600 chars) and plateaus once
+chunks are large enough to hold a full article - splitting an article into
+200-800 character windows sometimes separates a number (a rate, a threshold,
+a duration) from the clause that explains what it means, which costs recall
+for no benefit, since we never needed a smaller unit than "one article" in
+the first place.
+
+**Honest caveat:** at 1600 characters, `recursive_char_1600` (0.882 recall,
+0.690 MRR) and `article_based` (0.882 recall, 0.678 MRR) are statistically
+tied - chunk *size*, not the "respect article boundaries" heuristic, is
+doing most of the work once chunks are big enough. `article_based` wins on
+criteria the recall metric doesn't capture: 18% fewer chunks (1298 vs 1577),
+~14% faster to build, and an exact chunk-to-article mapping by construction
+rather than as a byproduct of a large-enough character window.
 
 ## Consequences
 
-- **Pro**: highest recall@5 of any variant tested, zero extra chunking
-  parameters to tune per corpus, and chunk metadata (`article_number`,
-  `section_title`) is exact - useful for citations in the API response.
+- **Pro**: highest recall@5 of any variant tested (tied with `recursive_char_1600`),
+  zero extra chunking parameters to tune per corpus, and chunk metadata
+  (`article_number`, `section_title`) is exact - useful for citations in the
+  API response.
 - **Con**: this strategy is corpus-specific. It assumes the source documents
   are already organized into short, numbered, self-contained units. It would
   need to fall back to `recursive_char` (or a smarter section-based splitter)

@@ -100,20 +100,42 @@ Two ablations, run in `notebooks/02_ablation.ipynb`:
 
 ![ablation chunk size](evaluation/results/ablation_chunk_size.png)
 
-`article_based` chunking wins because Kazakh/Russian statutory articles are
-already short, self-contained units — a naive "one chunk = one article" rule
-beats a blind character splitter, because splitting an article into
-200-800 character windows sometimes separates a number (a rate, a threshold,
-a duration) from the clause that explains what it refers to.
+| strategy | chunks | recall@5 | MRR | encode time |
+|---|---|---|---|---|
+| recursive_char_200 | 12,597 | 0.647 | 0.537 | 247.9s |
+| recursive_char_400 | 6,361 | 0.765 | 0.582 | 197.4s |
+| recursive_char_800 | 3,080 | 0.765 | 0.670 | 131.3s |
+| recursive_char_1600 | 1,577 | 0.882 | 0.690 | 72.4s |
+| **article_based** | **1,298** | **0.882** | 0.678 | **62.9s** |
 
-**2. Embedding model comparison** (chunking fixed to the winner above):
+Recall climbs monotonically with chunk size and plateaus at 0.88 once
+chunks are large enough to hold a full article. Honest result:
+`recursive_char_1600` and `article_based` are statistically tied on
+recall@5 — chunk *size*, not the "respect article boundaries" heuristic, is
+doing most of the work once chunks are big enough. `article_based` is still
+the better production choice for reasons that don't show up in recall@5
+alone: 18% fewer chunks, ~14% faster to build, and its chunk-to-article
+mapping is exact by construction (not a byproduct of a large-enough
+character window) — which is what gives `/ask`'s `sources` field clean,
+correct citations regardless of where in the article the matched text falls.
+
+**2. Embedding model comparison** (chunking fixed to `article_based`):
 
 ![ablation embedding model](evaluation/results/ablation_embedding_model.png)
 
-`all-MiniLM-L6-v2` is English-only and was never trained on Russian text; it
-measurably underperforms the multilingual model on this corpus for a small
-extra cost in encoding time — the multilingual model is worth the small
-latency tax it adds.
+| model | recall@5 | MRR | encode time (1,298 chunks) |
+|---|---|---|---|
+| paraphrase-multilingual-MiniLM-L12-v2 | 0.882 | 0.678 | 62.5s |
+| all-MiniLM-L6-v2 (English-only) | 0.118 | 0.125 | 61.7s |
+
+Not a "measurably worse" result — a "wrong tool" result. `all-MiniLM-L6-v2`
+was never trained on Russian text, so its tokenizer fragments Cyrillic into
+near-meaningless subword pieces and cosine similarity degrades to noise
+(0.118 recall is barely above what 5 random chunks out of 1,298 would give
+by chance). The multilingual model costs essentially the same encode time
+(62.5s vs 61.7s) for a 7.5x recall improvement — this is the mistake an
+English-defaults tutorial would walk you into, and the ablation is what
+catches it.
 
 Full numbers: `evaluation/results/ablation_summary.json`.
 
@@ -172,6 +194,27 @@ Most likely to happen first in production: the LLM timeout/transient-failure
 path, since the Alem AI endpoint is a shared third-party service outside our
 control — the vector index and validation layers are entirely local and far
 more predictable.
+
+Re-running the notebooks interactively needs Jupyter: `pip install -r requirements-dev.txt`.
+
+### Smoke test
+
+`scripts/smoke_test.py` sends 100 random-length questions (derived from the
+ground truth set, truncated to random lengths ≥3 chars) through `/ask` in a
+single run and checks for crashes / memory leaks, per the RAID §6
+requirement:
+
+```
+Sent 100 requests in 147.2s
+Status codes: [200] (counts: {200: 100})
+Server-side crashes (5xx or exception): 0
+Latency ms: min=4.4 mean=1471.8 max=6684.9
+Traced Python heap: start=240.9MB end=256.7MB delta=+15.9MB
+
+SMOKE TEST PASSED: no crashes, no 5xx responses.
+```
+
+Full log: `evaluation/results/smoke_test.log`.
 
 ## Testing
 

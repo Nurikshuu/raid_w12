@@ -1,0 +1,48 @@
+{
+  "chunk_size_sweep": {
+    "recursive_char_200": {
+      "num_chunks": 12597,
+      "recall_at_5": 0.6470588235294118,
+      "mrr": 0.5365079365079365,
+      "encode_seconds": 247.89
+    },
+    "recursive_char_400": {
+      "num_chunks": 6361,
+      "recall_at_5": 0.7647058823529411,
+      "mrr": 0.5818627450980393,
+      "encode_seconds": 197.39
+    },
+    "recursive_char_800": {
+      "num_chunks": 3080,
+      "recall_at_5": 0.7647058823529411,
+      "mrr": 0.6696778711484593,
+      "encode_seconds": 131.26
+    },
+    "recursive_char_1600": {
+      "num_chunks": 1577,
+      "recall_at_5": 0.8823529411764706,
+      "mrr": 0.6897058823529412,
+      "encode_seconds": 72.44
+    },
+    "article_based": {
+      "num_chunks": 1298,
+      "recall_at_5": 0.8823529411764706,
+      "mrr": 0.6781045751633987,
+      "encode_seconds": 62.88
+    }
+  },
+  "embedding_model_sweep": {
+    "paraphrase-multilingual-MiniLM-L12-v2": {
+      "num_chunks": 1298,
+      "recall_at_5": 0.8823529411764706,
+      "mrr": 0.6781045751633987,
+      "encode_seconds": 62.53
+    },
+    "all-MiniLM-L6-v2 (English-only)": {
+      "num_chunks": 1298,
+      "recall_at_5": 0.11764705882352941,
+      "mrr": 0.125,
+      "encode_seconds": 61.65
+    }
+  }
+}

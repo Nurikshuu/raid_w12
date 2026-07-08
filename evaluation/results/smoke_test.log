@@ -1,0 +1,6 @@
+Status codes: [200] (counts: {200: 100})
+Server-side crashes (5xx or exception): 0
+Latency ms: min=4.4 mean=1471.8 max=6684.9
+Traced Python heap: start=240.9MB end=256.7MB delta=+15.9MB
+
+SMOKE TEST PASSED: no crashes, no 5xx responses.

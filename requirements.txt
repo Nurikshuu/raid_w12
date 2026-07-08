@@ -5,7 +5,6 @@ python-dotenv==1.2.2
 sentence-transformers==5.6.0
 faiss-cpu==1.14.3
 langchain-text-splitters==1.1.2
-rank-bm25==0.2.2
 beautifulsoup4==4.15.0
 openai==2.44.0
 tenacity==9.1.4
