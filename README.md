@@ -250,6 +250,33 @@ Failure example (degraded retrieval):
 latency, error rate, cache hit rate, total tokens, and mean top-1 retrieval
 score.
 
+## Scaling to 1M documents
+
+What breaks first, in order:
+
+1. **Index memory.** `IndexFlatIP` is exact but O(n) per query and holds every
+   vector in RAM. At ~1,300 chunks x 384 dims x 4 bytes we're at ~2MB today;
+   1M documents at a similar chunk density (roughly 2,000 chunks/document for
+   this corpus's chunk-per-article ratio would be unrealistic - more like
+   5-10 chunks/document for typical prose) is still tens of millions of
+   vectors, i.e. tens of GB resident in one process. First fix: switch to
+   `IndexHNSWFlat` or `IndexIVFPQ` (approximate, sub-linear, and compressible)
+   - already a one-line change since we went through FAISS instead of a
+   hand-rolled cosine loop.
+2. **Embedding cost.** Encoding 1M documents from scratch (even once) on a
+   laptop CPU at our observed ~20 chunks/sec would take days. This needs a
+   GPU batch job or a managed embedding API, run once, with the on-disk cache
+   we already have making every *subsequent* incremental update cheap
+   (only new/changed chunks get re-embedded).
+3. **Where async processing enters.** Today ingestion + indexing is a
+   synchronous CLI script because it finishes in under two minutes. At 1M
+   documents it becomes an offline batch/streaming pipeline: a queue (new
+   document → chunk → embed → upsert into a sharded/partitioned vector store)
+   decoupled from the request-serving API, so a slow re-index never blocks
+   `/ask`. The API's `index_version` field (already used in the retrieval
+   cache key) is exactly the hook needed for the API to pick up a new index
+   atomically once the batch job finishes, without a restart.
+
 ## Architecture Decision Records
 
 - [`docs/adr/001-chunking-strategy.md`](docs/adr/001-chunking-strategy.md) — why `article_based` chunking over pure `RecursiveCharacterTextSplitter` or semantic chunking.
